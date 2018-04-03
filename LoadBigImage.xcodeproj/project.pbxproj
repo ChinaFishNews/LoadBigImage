@@ -13,6 +13,7 @@
 		57BD55BA20736EA60023EF55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57BD55B920736EA60023EF55 /* Assets.xcassets */; };
 		57BD55BD20736EA60023EF55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57BD55BB20736EA60023EF55 /* LaunchScreen.storyboard */; };
 		57BD55C020736EA60023EF55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57BD55BF20736EA60023EF55 /* main.m */; };
+		57BD55C7207371DE0023EF55 /* spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 57BD55C62073717E0023EF55 /* spaceship.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		57BD55BC20736EA60023EF55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57BD55BE20736EA60023EF55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57BD55BF20736EA60023EF55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		57BD55C62073717E0023EF55 /* spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spaceship.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				57BD55B120736EA60023EF55 /* AppDelegate.m */,
 				57BD55B320736EA60023EF55 /* ViewController.h */,
 				57BD55B420736EA60023EF55 /* ViewController.m */,
+				57BD55C62073717E0023EF55 /* spaceship.png */,
 				57BD55B620736EA60023EF55 /* Main.storyboard */,
 				57BD55B920736EA60023EF55 /* Assets.xcassets */,
 				57BD55BB20736EA60023EF55 /* LaunchScreen.storyboard */,
@@ -129,6 +132,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57BD55C7207371DE0023EF55 /* spaceship.png in Resources */,
 				57BD55BD20736EA60023EF55 /* LaunchScreen.storyboard in Resources */,
 				57BD55BA20736EA60023EF55 /* Assets.xcassets in Resources */,
 				57BD55B820736EA60023EF55 /* Main.storyboard in Resources */,
