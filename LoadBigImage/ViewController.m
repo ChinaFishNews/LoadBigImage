@@ -8,9 +8,11 @@
 
 #import "ViewController.h"
 
+static NSString *IDENTIFIER = @"IDENTIFIER";
+
 typedef BOOL(^RunloopBlock)(void);
 
-@interface ViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()
 
 /** 存放任务的数组 */
 @property(nonatomic,strong)NSMutableArray * tasks;
@@ -21,44 +23,30 @@ typedef BOOL(^RunloopBlock)(void);
 
 @property (nonatomic, strong) NSTimer *timer;
 
-@property (nonatomic, strong) UITableView *exampleTableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
 @implementation ViewController
-
-- (void)loadView {
-    self.view = [UIView new];
-    self.exampleTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.exampleTableView.delegate = self;
-    self.exampleTableView.dataSource = self;
-    [self.view addSubview:self.exampleTableView];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.tasks = @[].mutableCopy;
     self.tasksKeys = @[].mutableCopy;
-    self.max = 30;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.0001 target:self selector:@selector(_timerFiredMethod) userInfo:nil repeats:YES];
+    // 要超出至少一屏显示的数量
+    self.max = 100;
+    // 用来唤醒runLoop
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerMethod) userInfo:nil repeats:YES];
     
     [self addRunLoopObserver];
 }
 
-- (void)_timerFiredMethod {
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.exampleTableView.frame = self.view.bounds;
-}
-
+- (void)timerMethod {}
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 200;
+    return 100;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -66,29 +54,25 @@ typedef BOOL(^RunloopBlock)(void);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IDENTIFIER];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:IDENTIFIER];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     for (NSInteger i = 0; i < 3; i++) {
         [[cell.contentView viewWithTag:100 + i] removeFromSuperview];
     }
     for (NSInteger i = 0; i < 3; i++) {
-//        UIImageView *imageView = [cell.contentView viewWithTag:100 + i];
-//        NSString *path = [[NSBundle mainBundle] pathForResource:@"spaceship" ofType:@"png"];
-//        UIImage *image = [UIImage imageWithContentsOfFile:path];
-//        imageView.image = image;
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100 * i, 7, 85, 85)];
+        imageView.tag = 100 + i;
+        imageView.contentMode = UIViewContentModeScaleToFill;
         [self addTask:^BOOL{
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100 * i, 7, 85, 85)];
-            imageView.tag = 100 + i;
-            imageView.contentMode = UIViewContentModeScaleToFill;
-            [UIView transitionWithView:cell.contentView duration:0.3 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
-                [cell.contentView addSubview:imageView];
-            } completion:nil];
             NSString *path = [[NSBundle mainBundle] pathForResource:@"spaceship" ofType:@"png"];
             UIImage *image = [UIImage imageWithContentsOfFile:path];
             imageView.image = image;
+            [UIView transitionWithView:cell.contentView duration:0.3 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
+                [cell.contentView addSubview:imageView];
+            } completion:nil];
             return YES;
         } key:indexPath];
     }
