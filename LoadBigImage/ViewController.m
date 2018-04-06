@@ -101,12 +101,12 @@ typedef BOOL(^RunloopBlock)(void);
                                                   NSIntegerMax - 999,
                                                   &callback,
                                                   &context);
-    CFRunLoopAddObserver(runLoop, defaultModeObserver, kCFRunLoopDefaultMode);
+    CFRunLoopAddObserver(runLoop, defaultModeObserver, kCFRunLoopCommonModes);
     CFRelease(defaultModeObserver);
 }
 
 // 回调函数
-static void callback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info){
+static void callback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
     ViewController *vc = (__bridge ViewController *)(info);
     if (vc.tasks.count == 0) {
         return;
